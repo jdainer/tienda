@@ -9,7 +9,7 @@
     
     <style>
         /* =======================================
-           ESTILOS CSS PUROS (CORRECCIÓN DEFINITIVA DE VISIBILIDAD)
+           ESTILOS CSS PUROS
            ======================================= */
         :root {
             /* Variables de color de tu tema */
@@ -25,10 +25,8 @@
             color: var(--secondary-light);
             min-height: 100vh;
             position: relative;
-            /* Se eliminó overflow: hidden; para permitir el scroll */
         }
 
-        /* 2. Estilos específicos para que el Contenido Secundario se vea bien */
         .card-bg {
             background-color: rgba(30, 41, 59, 0.7); /* deep-navy/70 */
             border: 1px solid rgba(217, 169, 78, 0.5); /* accent-gold/50 */
@@ -38,7 +36,7 @@
             border: 1px solid #374151; /* gray-700 */
         }
         
-        /* Animaciones para el Icono y la Entrada (se mantienen) */
+        /* Animaciones */
         @keyframes pulseIcon {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -51,61 +49,36 @@
         }
         .animate-fade-in { 
             animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0; /* Asegura que comienza invisible */
+            opacity: 0; 
         }
         
-        /* CSS para el Confeti (se mantiene) */
-       /* CSS para el Confeti (AHORA MÁS RÁPIDO Y DENSO) */
+        /* Confeti */
         @keyframes confetti {
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; } /* Hacer que aparezcan antes */
+            10% { opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         .confetti-piece {
             position: absolute;
-            width: 8px; /* Ligeramente más estrecho */
-            height: 16px; /* Ligeramente más pequeño */
-            background-color: var(--accent-gold); /* Dorado (Se mantiene) */
+            width: 8px;
+            height: 16px;
+            background-color: var(--accent-gold);
             opacity: 0;
-            /* DURACIÓN MÁS CORTA (LLUVIA RÁPIDA): 10s -> 5s */
             animation: confetti 5s ease-in-out infinite;
             pointer-events: none;
             z-index: 1000;
         }
 
-        /* --- Nuevas Piezas de Confeti para mayor Densidad --- */
-        /* Mantén estas reglas para asegurar colores y retrasos variados */
-        .confetti-piece:nth-child(2) { background-color: var(--secondary-light); left: 75%; animation-delay: 0.2s; }
-        .confetti-piece:nth-child(3) { background-color: var(--accent-gold); left: 100%; animation-delay: 0.4s; }
-        .confetti-piece:nth-child(4) { background-color: var(--secondary-light); left: 85%; animation-delay: 0.6s; }
-        .confetti-piece:nth-child(5) { background-color: var(--accent-gold); left: 60%; animation-delay: 0.8s; }
-        .confetti-piece:nth-child(6) { background-color: var(--secondary-light); left: 75%; animation-delay: 1.0s; }
-        .confetti-piece:nth-child(7) { background-color: var(--accent-gold); left: 80%; animation-delay: 1.2s; }
-        .confetti-piece:nth-child(8) { background-color: var(--secondary-light); left: 65%; animation-delay: 1.4s; }
-        .confetti-piece:nth-child(9) { background-color: var(--accent-gold); left: 60%; animation-delay: 1.6s; }
+        .confetti-piece:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .confetti-piece:nth-child(2) { background-color: var(--secondary-light); left: 15%; animation-delay: 0.2s; }
+        .confetti-piece:nth-child(3) { left: 25%; animation-delay: 0.4s; }
+        .confetti-piece:nth-child(4) { background-color: var(--secondary-light); left: 35%; animation-delay: 0.6s; }
+        .confetti-piece:nth-child(5) { left: 45%; animation-delay: 0.8s; }
+        .confetti-piece:nth-child(6) { background-color: var(--secondary-light); left: 55%; animation-delay: 1.0s; }
+        .confetti-piece:nth-child(7) { left: 65%; animation-delay: 1.2s; }
+        .confetti-piece:nth-child(8) { background-color: var(--secondary-light); left: 75%; animation-delay: 1.4s; }
+        .confetti-piece:nth-child(9) { left: 85%; animation-delay: 1.6s; }
         .confetti-piece:nth-child(10) { background-color: var(--secondary-light); left: 95%; animation-delay: 1.8s; }
-        
-                .confetti-piece:nth-child(2) { background-color: var(--secondary-light); left: 75%; animation-delay: 0.2s; }
-        .confetti-piece:nth-child(3) { background-color: var(--accent-gold); left: 100%; animation-delay: 0.4s; }
-        .confetti-piece:nth-child(4) { background-color: var(--secondary-light); left: 85%; animation-delay: 0.6s; }
-        .confetti-piece:nth-child(5) { background-color: var(--accent-gold); left: 60%; animation-delay: 0.8s; }
-        .confetti-piece:nth-child(6) { background-color: var(--secondary-light); left: 75%; animation-delay: 1.0s; }
-        .confetti-piece:nth-child(7) { background-color: var(--accent-gold); left: 80%; animation-delay: 1.2s; }
-        .confetti-piece:nth-child(8) { background-color: var(--secondary-light); left: 65%; animation-delay: 1.4s; }
-        .confetti-piece:nth-child(9) { background-color: var(--accent-gold); left: 60%; animation-delay: 1.6s; }
-        .confetti-piece:nth-child(10) { background-color: var(--secondary-light); left: 95%; animation-delay: 1.8s; } /* Configuración de Tailwind (Aún se usa para utilidades, pero menos dependiente de colores) */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#0f172a',
-                        'accent-gold': '#d9a94e',
-                        'secondary-light': '#f3f4f6',
-                        'deep-navy': '#1e293b',
-                    },
-                }
-            }
-        }
     </style>
 </head>
 <body class="text-secondary-light"> 
@@ -120,29 +93,17 @@
         <div class="confetti-piece" style="top: -40px; left: 75%;"></div>
         <div class="confetti-piece" style="top: -70px; left: 85%;"></div>
         <div class="confetti-piece" style="top: -20px; left: 95%;"></div>
-    </div>
-    <div id="confetti-container">
-        <div class="confetti-piece" style="top: -20px; left: 2%;"></div>
-        <div class="confetti-piece" style="top: -50px; left: 7%;"></div>
-        <div class="confetti-piece" style="top: -80px; left: 12%;"></div>
-        <div class="confetti-piece" style="top: -10px; left: 17%;"></div>
-        <div class="confetti-piece" style="top: -60px; left: 22%;"></div>
-        <div class="confetti-piece" style="top: -30px; left: 27%;"></div>
-        <div class="confetti-piece" style="top: -90px; left: 32%;"></div>
-        <div class="confetti-piece" style="top: -40px; left: 37%;"></div>
-        <div class="confetti-piece" style="top: -70px; left: 42%;"></div>
-        <div class="confetti-piece" style="top: -20px; left: 47%;"></div>
         
-        <div class="confetti-piece" style="top: -15px; left: 52%;"></div>
-        <div class="confetti-piece" style="top: -45px; left: 57%;"></div>
-        <div class="confetti-piece" style="top: -75px; left: 62%;"></div>
-        <div class="confetti-piece" style="top: -5px; left: 67%;"></div>
-        <div class="confetti-piece" style="top: -65px; left: 72%;"></div>
+        <div class="confetti-piece" style="top: -15px; left: 2%;"></div>
+        <div class="confetti-piece" style="top: -45px; left: 17%;"></div>
+        <div class="confetti-piece" style="top: -75px; left: 32%;"></div>
+        <div class="confetti-piece" style="top: -5px; left: 47%;"></div>
+        <div class="confetti-piece" style="top: -65px; left: 62%;"></div>
         <div class="confetti-piece" style="top: -35px; left: 77%;"></div>
-        <div class="confetti-piece" style="top: -85px; left: 82%;"></div>
-        <div class="confetti-piece" style="top: -45px; left: 87%;"></div>
-        <div class="confetti-piece" style="top: -75px; left: 92%;"></div>
-        <div class="confetti-piece" style="top: -25px; left: 97%;"></div>
+        <div class="confetti-piece" style="top: -85px; left: 92%;"></div>
+        <div class="confetti-piece" style="top: -25px; left: 12%;"></div>
+        <div class="confetti-piece" style="top: -55px; left: 27%;"></div>
+        <div class="confetti-piece" style="top: -85px; left: 42%;"></div>
     </div>
 
     <div class="container mx-auto px-4 py-12 md:py-16 max-w-xl animate-fade-in">
@@ -152,11 +113,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             
-            <h1 class="text-2xl font-extrabold text-accent-blue mb-2">¡Pedido Registrado!</h1>
-            <p class="text-xl">por ultimo lo enviamos por wathsaap.</p>
+            <h1 class="text-2xl font-extrabold text-accent-gold mb-2">¡Pedido Registrado!</h1>
+            <p class="text-xl">Por último, envíalo por WhatsApp para confirmar los datos.</p>
 
-            <p class="mt-4 text-base" style="color: var(--blue-text);">
-                <span id="order-number" class="font-bold text-accent-gold">+ informacion al 313 809 4678</span>
+            <p class="mt-4 text-base" style="color: var(--gray-text);">
+                Nº de Orden: <span id="order-number" class="font-bold text-accent-gold">#MJF-2025010</span>
             </p>
         </div>
 
@@ -164,19 +125,33 @@
             <h2 class="text-3xl font-extrabold mb-6 border-b border-gray-700 pb-3">Resumen de la Orden</h2>
 
             <div class="space-y-4">
+                
+                <h3 class="text-xl font-bold pt-4 pb-2 border-t border-gray-700 text-accent-gold">Datos del Cliente</h3>
+                
+                <div class="flex justify-between pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Nombre:</span>
+                    <span id="resumen-cliente-nombre" class="font-bold">Cargando...</span>
+                </div>
                 <div class="flex justify-between border-b border-gray-700 pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Teléfono:</span>
+                    <span id="resumen-cliente-telefono" class="font-bold">Cargando...</span>
+                </div>
+                
+                <h3 class="text-xl font-bold pt-4 pb-2 border-t border-gray-700 text-accent-gold">Detalles del Perfume</h3>
+                
+                <div class="flex justify-between pb-2">
                     <span style="color: var(--gray-text);" class="font-medium">Perfume:</span>
                     <span id="resumen-nombre" class="font-bold">Cargando...</span>
                 </div>
-                <div class="flex justify-between border-b border-gray-700 pb-2">
+                <div class="flex justify-between pb-2">
                     <span style="color: var(--gray-text);" class="font-medium">Marca:</span>
                     <span id="resumen-marca" class="font-bold">Cargando...</span>
                 </div>
-                <div class="flex justify-between border-b border-gray-700 pb-2">
+                <div class="flex justify-between pb-2">
                     <span style="color: var(--gray-text);" class="font-medium">Tamaño:</span>
                     <span id="resumen-talla" class="font-bold">Cargando...</span>
                 </div>
-                <div class="flex justify-between border-b border-gray-700 pb-2">
+                <div class="flex justify-between pb-2">
                     <span style="color: var(--gray-text);" class="font-medium">Método de Pago:</span>
                     <span id="resumen-pago" class="font-bold">Cargando...</span>
                 </div>
@@ -187,21 +162,20 @@
                 </div>
             </div>
 
-            <p class="text-sm mt-6 text-center" style="color: var(--gold-text);">
-                *recuerda que mis fragancias jhon dainer arias da premios a los mejores clientes .
+            <p class="text-sm mt-6 text-center" style="color: var(--gray-text);">
+                *Recuerda que mis fragancias Jhon Dainer Arias da premios a los mejores clientes.
             </p>
         </div>
 
         <div class="mt-8 text-center">
-             <p class="mb-4 text-lg">
-               haz clic en el boton verde  y todo estara listo 
+            <p class="mb-4 text-lg">
+                Haz clic en el botón verde y todo estará listo. 
             </p>
 
-
-
-            <a href="https://wa.me/3138094678" 
-               target="_blank" 
-               class="inline-flex items-center px-8 py-4 bg-green-500 text-white font-extrabold text-lg rounded-xl hover:bg-green-600 transition duration-300 shadow-lg transform hover:scale-105">
+            <a href="https://wa.me/573138094678" 
+                id="whatsapp-confirm-link"
+                target="_blank" 
+                class="inline-flex items-center px-8 py-4 bg-green-500 text-white font-extrabold text-lg rounded-xl hover:bg-green-600 transition duration-300 shadow-lg transform hover:scale-105">
                 <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.4 1.35 4.83l-1.4 5.16 5.34-1.38c1.38.79 2.95 1.25 4.61 1.25 5.46 0 9.9-4.44 9.9-9.9s-4.44-9.9-9.9-9.9zm4.77 12.37c-.24.4-.64.57-1.04.57-.4 0-.8-.17-1.04-.57l-.6-1.16c-.24-.41-.74-.82-1.34-.82-.6 0-1.1.41-1.34.82l-.6 1.16c-.24.41-.64.57-1.04.57-.4 0-.8-.17-1.04-.57l-1.1-2.1c-.24-.41-.2-1.2 0-1.61.19-.34.54-.51.99-.51.45 0 .84.17 1.04.51l.3 1.1.6 1.16c.15.24.4.24.6 0l.6-1.16.3-1.1c.2-.41.59-.51.99-.51.4 0 .8.17 1.04.51l1.1 2.1c.24.41.28 1.2 0 1.61z"/>
                 </svg>
@@ -224,10 +198,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            
             const N_A = 'No Especificado';
 
-            // 1. Obtener los datos pasados por URL
+            // 1. Obtener los datos del pedido y del cliente
+            const name = params.get('clientName') || N_A;
+            const phone = params.get('clientPhone') || N_A;
             const marca = params.get('brandName') || N_A;
             const nombre = params.get('perfumeName') || N_A;
             const talla = params.get('size') || N_A;
@@ -238,36 +213,44 @@
             const total = parseInt(totalStr, 10);
             const formattedTotal = total === 0 ? N_A : `$${total.toLocaleString('es-CO')}`;
 
-            // 3. Insertar los datos en el resumen de la factura
+            // 3. Insertar los datos del CLIENTE en el resumen
+            document.getElementById('resumen-cliente-nombre').textContent = name;
+            document.getElementById('resumen-cliente-telefono').textContent = phone;
+
+            // 4. Insertar los datos del PRODUCTO en el resumen
             document.getElementById('resumen-nombre').textContent = nombre;
             document.getElementById('resumen-marca').textContent = marca;
             document.getElementById('resumen-talla').textContent = talla;
             document.getElementById('resumen-pago').textContent = pago;
             document.getElementById('resumen-total').textContent = formattedTotal;
 
-            // 4. Generar el mensaje detallado de WhatsApp
+            // 5. Generar el mensaje detallado de WhatsApp (Añadiendo Nombre y Teléfono)
             const orderNumberElement = document.getElementById('order-number');
             const orderNumber = orderNumberElement ? orderNumberElement.textContent : '#MJF-2025010';
             
-            const whatsappLinkElement = document.querySelector('.inline-flex');
+            const whatsappLinkElement = document.getElementById('whatsapp-confirm-link');
             
             if (whatsappLinkElement) {
-                let message = `Hola Jhon Arias, acabo de realizar un pedido (Nº ${orderNumber}):\n`;
-                message += `* Perfume: ${nombre} (${marca})\n`;
-                message += `* Tamaño: ${talla}\n`;
-                message += `* Método de Pago: ${pago}\n`;
-                message += `* Total Estimado: ${formattedTotal}\n`;
-                message += `\nQuisiera confirmar la dirección de envío y el total final.`;
-                
+                // Mensaje Completo, incluyendo los datos del cliente
+                let message = `✨ *CONFIRMACIÓN DE PEDIDO* ✨\n`;
+                message += `*Nº de Orden*: ${orderNumber}\n\n`;
+                message += `--- 👤 *Datos del Cliente* 👤 ---\n`;
+                message += `*Nombre*: ${name}\n`;
+                message += `*Teléfono*: ${phone}\n\n`;
+                message += `--- 🛍️ *Detalles del Producto* 🛍️ ---\n`;
+                message += `*Perfume*: ${nombre} (${marca})\n`;
+                message += `*Tamaño*: ${talla}\n`;
+                message += `*Método de Pago*: ${pago}\n\n`;
+                message += `*TOTAL ESTIMADO*: ${formattedTotal}\n\n`;
+                message += `Por favor, confírmame los datos para proceder con el envío a Ibagué. ¡Gracias! 🚚`;
+
                 const encodedMessage = encodeURIComponent(message);
                 
                 // Extrae la base del enlace (https://wa.me/TUNUMERO)
-                const baseHrefMatch = whatsappLinkElement.href.match(/https:\/\/wa\.me\/[0-9A-Za-z]+/);
+                // Usamos un número de ejemplo: 573138094678
+                const baseHref = `https://wa.me/573138094678`;
                 
-                if (baseHrefMatch) {
-                     const baseHref = baseHrefMatch[0];
-                     whatsappLinkElement.href = `${baseHref}?text=${encodedMessage}`;
-                }
+                whatsappLinkElement.href = `${baseHref}?text=${encodedMessage}`;
             }
         });
     </script>
