@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Pedido Registrado! | Mis Fragancias Jhon Arias</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* =======================================
+           ESTILOS CSS PUROS (CORRECCIÓN DEFINITIVA DE VISIBILIDAD)
+           ======================================= */
+        :root {
+            /* Variables de color de tu tema */
+            --primary-dark: #0f172a;
+            --accent-gold: #d9a94e;
+            --secondary-light: #f3f4f6;
+            --deep-navy: #1e293b;
+            --gray-text: #9ca3af; /* gray-400 */
+        }
+
+        body {
+            background-color: var(--primary-dark); 
+            color: var(--secondary-light);
+            min-height: 100vh;
+            position: relative;
+            /* Se eliminó overflow: hidden; para permitir el scroll */
+        }
+
+        /* 2. Estilos específicos para que el Contenido Secundario se vea bien */
+        .card-bg {
+            background-color: rgba(30, 41, 59, 0.7); /* deep-navy/70 */
+            border: 1px solid rgba(217, 169, 78, 0.5); /* accent-gold/50 */
+        }
+        .summary-card-bg {
+            background-color: rgba(17, 24, 39, 0.7); /* gray-800/70 */
+            border: 1px solid #374151; /* gray-700 */
+        }
+        
+        /* Animaciones para el Icono y la Entrada (se mantienen) */
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .animate-pulse-icon { animation: pulseIcon 1.5s infinite; }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { 
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Asegura que comienza invisible */
+        }
+        
+        /* CSS para el Confeti (se mantiene) */
+       /* CSS para el Confeti (AHORA MÁS RÁPIDO Y DENSO) */
+        @keyframes confetti {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; } /* Hacer que aparezcan antes */
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 8px; /* Ligeramente más estrecho */
+            height: 16px; /* Ligeramente más pequeño */
+            background-color: var(--accent-gold); /* Dorado (Se mantiene) */
+            opacity: 0;
+            /* DURACIÓN MÁS CORTA (LLUVIA RÁPIDA): 10s -> 5s */
+            animation: confetti 5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* --- Nuevas Piezas de Confeti para mayor Densidad --- */
+        /* Mantén estas reglas para asegurar colores y retrasos variados */
+        .confetti-piece:nth-child(2) { background-color: var(--secondary-light); left: 75%; animation-delay: 0.2s; }
+        .confetti-piece:nth-child(3) { background-color: var(--accent-gold); left: 100%; animation-delay: 0.4s; }
+        .confetti-piece:nth-child(4) { background-color: var(--secondary-light); left: 85%; animation-delay: 0.6s; }
+        .confetti-piece:nth-child(5) { background-color: var(--accent-gold); left: 60%; animation-delay: 0.8s; }
+        .confetti-piece:nth-child(6) { background-color: var(--secondary-light); left: 75%; animation-delay: 1.0s; }
+        .confetti-piece:nth-child(7) { background-color: var(--accent-gold); left: 80%; animation-delay: 1.2s; }
+        .confetti-piece:nth-child(8) { background-color: var(--secondary-light); left: 65%; animation-delay: 1.4s; }
+        .confetti-piece:nth-child(9) { background-color: var(--accent-gold); left: 60%; animation-delay: 1.6s; }
+        .confetti-piece:nth-child(10) { background-color: var(--secondary-light); left: 95%; animation-delay: 1.8s; }
+        
+                .confetti-piece:nth-child(2) { background-color: var(--secondary-light); left: 75%; animation-delay: 0.2s; }
+        .confetti-piece:nth-child(3) { background-color: var(--accent-gold); left: 100%; animation-delay: 0.4s; }
+        .confetti-piece:nth-child(4) { background-color: var(--secondary-light); left: 85%; animation-delay: 0.6s; }
+        .confetti-piece:nth-child(5) { background-color: var(--accent-gold); left: 60%; animation-delay: 0.8s; }
+        .confetti-piece:nth-child(6) { background-color: var(--secondary-light); left: 75%; animation-delay: 1.0s; }
+        .confetti-piece:nth-child(7) { background-color: var(--accent-gold); left: 80%; animation-delay: 1.2s; }
+        .confetti-piece:nth-child(8) { background-color: var(--secondary-light); left: 65%; animation-delay: 1.4s; }
+        .confetti-piece:nth-child(9) { background-color: var(--accent-gold); left: 60%; animation-delay: 1.6s; }
+        .confetti-piece:nth-child(10) { background-color: var(--secondary-light); left: 95%; animation-delay: 1.8s; } /* Configuración de Tailwind (Aún se usa para utilidades, pero menos dependiente de colores) */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0f172a',
+                        'accent-gold': '#d9a94e',
+                        'secondary-light': '#f3f4f6',
+                        'deep-navy': '#1e293b',
+                    },
+                }
+            }
+        }
+    </style>
+</head>
+<body class="text-secondary-light"> 
+    <div id="confetti-container">
+        <div class="confetti-piece" style="top: -20px; left: 5%;"></div>
+        <div class="confetti-piece" style="top: -50px; left: 15%;"></div>
+        <div class="confetti-piece" style="top: -80px; left: 25%;"></div>
+        <div class="confetti-piece" style="top: -10px; left: 35%;"></div>
+        <div class="confetti-piece" style="top: -60px; left: 45%;"></div>
+        <div class="confetti-piece" style="top: -30px; left: 55%;"></div>
+        <div class="confetti-piece" style="top: -90px; left: 65%;"></div>
+        <div class="confetti-piece" style="top: -40px; left: 75%;"></div>
+        <div class="confetti-piece" style="top: -70px; left: 85%;"></div>
+        <div class="confetti-piece" style="top: -20px; left: 95%;"></div>
+    </div>
+    <div id="confetti-container">
+        <div class="confetti-piece" style="top: -20px; left: 2%;"></div>
+        <div class="confetti-piece" style="top: -50px; left: 7%;"></div>
+        <div class="confetti-piece" style="top: -80px; left: 12%;"></div>
+        <div class="confetti-piece" style="top: -10px; left: 17%;"></div>
+        <div class="confetti-piece" style="top: -60px; left: 22%;"></div>
+        <div class="confetti-piece" style="top: -30px; left: 27%;"></div>
+        <div class="confetti-piece" style="top: -90px; left: 32%;"></div>
+        <div class="confetti-piece" style="top: -40px; left: 37%;"></div>
+        <div class="confetti-piece" style="top: -70px; left: 42%;"></div>
+        <div class="confetti-piece" style="top: -20px; left: 47%;"></div>
+        
+        <div class="confetti-piece" style="top: -15px; left: 52%;"></div>
+        <div class="confetti-piece" style="top: -45px; left: 57%;"></div>
+        <div class="confetti-piece" style="top: -75px; left: 62%;"></div>
+        <div class="confetti-piece" style="top: -5px; left: 67%;"></div>
+        <div class="confetti-piece" style="top: -65px; left: 72%;"></div>
+        <div class="confetti-piece" style="top: -35px; left: 77%;"></div>
+        <div class="confetti-piece" style="top: -85px; left: 82%;"></div>
+        <div class="confetti-piece" style="top: -45px; left: 87%;"></div>
+        <div class="confetti-piece" style="top: -75px; left: 92%;"></div>
+        <div class="confetti-piece" style="top: -25px; left: 97%;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-12 md:py-16 max-w-xl animate-fade-in">
+
+        <div class="text-center mb-10 p-6 rounded-xl shadow-2xl card-bg">
+            <svg id="success-icon" class="w-20 h-20 mx-auto mb-4 text-accent-gold animate-pulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            
+            <h1 class="text-2xl font-extrabold text-accent-blue mb-2">¡Pedido Registrado!</h1>
+            <p class="text-xl">por ultimo lo enviamos por wathsaap.</p>
+
+            <p class="mt-4 text-base" style="color: var(--blue-text);">
+                <span id="order-number" class="font-bold text-accent-gold">+ informacion al 313 809 4678</span>
+            </p>
+        </div>
+
+        <div class="p-6 md:p-8 rounded-xl shadow-2xl summary-card-bg">
+            <h2 class="text-3xl font-extrabold mb-6 border-b border-gray-700 pb-3">Resumen de la Orden</h2>
+
+            <div class="space-y-4">
+                <div class="flex justify-between border-b border-gray-700 pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Perfume:</span>
+                    <span id="resumen-nombre" class="font-bold">Cargando...</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-700 pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Marca:</span>
+                    <span id="resumen-marca" class="font-bold">Cargando...</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-700 pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Tamaño:</span>
+                    <span id="resumen-talla" class="font-bold">Cargando...</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-700 pb-2">
+                    <span style="color: var(--gray-text);" class="font-medium">Método de Pago:</span>
+                    <span id="resumen-pago" class="font-bold">Cargando...</span>
+                </div>
+                
+                <div class="flex justify-between pt-4 border-t-2 border-accent-gold/50">
+                    <span class="text-2xl font-bold text-accent-gold">Total Estimado:</span>
+                    <span id="resumen-total" class="text-3xl font-extrabold text-accent-gold">Cargando...</span>
+                </div>
+            </div>
+
+            <p class="text-sm mt-6 text-center" style="color: var(--gold-text);">
+                *recuerda que mis fragancias jhon dainer arias da premios a los mejores clientes .
+            </p>
+        </div>
+
+        <div class="mt-8 text-center">
+             <p class="mb-4 text-lg">
+               haz clic en el boton verde  y todo estara listo 
+            </p>
+
+
+
+            <a href="https://wa.me/3138094678" 
+               target="_blank" 
+               class="inline-flex items-center px-8 py-4 bg-green-500 text-white font-extrabold text-lg rounded-xl hover:bg-green-600 transition duration-300 shadow-lg transform hover:scale-105">
+                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.4 1.35 4.83l-1.4 5.16 5.34-1.38c1.38.79 2.95 1.25 4.61 1.25 5.46 0 9.9-4.44 9.9-9.9s-4.44-9.9-9.9-9.9zm4.77 12.37c-.24.4-.64.57-1.04.57-.4 0-.8-.17-1.04-.57l-.6-1.16c-.24-.41-.74-.82-1.34-.82-.6 0-1.1.41-1.34.82l-.6 1.16c-.24.41-.64.57-1.04.57-.4 0-.8-.17-1.04-.57l-1.1-2.1c-.24-.41-.2-1.2 0-1.61.19-.34.54-.51.99-.51.45 0 .84.17 1.04.51l.3 1.1.6 1.16c.15.24.4.24.6 0l.6-1.16.3-1.1c.2-.41.59-.51.99-.51.4 0 .8.17 1.04.51l1.1 2.1c.24.41.28 1.2 0 1.61z"/>
+                </svg>
+                CONFIRMAR COMPRA
+            </a>
+        </div>
+
+
+        <footer class="mt-10 text-center">
+            <p class="text-2xl font-light italic" style="color: var(--gray-text);">
+                "Gracias por preferir mis Fragancias Jhon Dainer Arias"
+            </p>
+            <a href="shop.html" style="background-color: var(--accent-gold); color: var(--primary-dark);" class="mt-6 inline-block px-6 py-3 font-bold rounded-lg hover:bg-[#c99a45] transition duration-300 shadow-md">
+                Volver a la tienda
+            </a>
+        </footer>
+
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            
+            const N_A = 'No Especificado';
+
+            // 1. Obtener los datos pasados por URL
+            const marca = params.get('brandName') || N_A;
+            const nombre = params.get('perfumeName') || N_A;
+            const talla = params.get('size') || N_A;
+            const pago = params.get('payment') || N_A;
+            const totalStr = params.get('total') || '0';
+            
+            // 2. Formatear el Total
+            const total = parseInt(totalStr, 10);
+            const formattedTotal = total === 0 ? N_A : `$${total.toLocaleString('es-CO')}`;
+
+            // 3. Insertar los datos en el resumen de la factura
+            document.getElementById('resumen-nombre').textContent = nombre;
+            document.getElementById('resumen-marca').textContent = marca;
+            document.getElementById('resumen-talla').textContent = talla;
+            document.getElementById('resumen-pago').textContent = pago;
+            document.getElementById('resumen-total').textContent = formattedTotal;
+
+            // 4. Generar el mensaje detallado de WhatsApp
+            const orderNumberElement = document.getElementById('order-number');
+            const orderNumber = orderNumberElement ? orderNumberElement.textContent : '#MJF-2025010';
+            
+            const whatsappLinkElement = document.querySelector('.inline-flex');
+            
+            if (whatsappLinkElement) {
+                let message = `Hola Jhon Arias, acabo de realizar un pedido (Nº ${orderNumber}):\n`;
+                message += `* Perfume: ${nombre} (${marca})\n`;
+                message += `* Tamaño: ${talla}\n`;
+                message += `* Método de Pago: ${pago}\n`;
+                message += `* Total Estimado: ${formattedTotal}\n`;
+                message += `\nQuisiera confirmar la dirección de envío y el total final.`;
+                
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Extrae la base del enlace (https://wa.me/TUNUMERO)
+                const baseHrefMatch = whatsappLinkElement.href.match(/https:\/\/wa\.me\/[0-9A-Za-z]+/);
+                
+                if (baseHrefMatch) {
+                     const baseHref = baseHrefMatch[0];
+                     whatsappLinkElement.href = `${baseHref}?text=${encodedMessage}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

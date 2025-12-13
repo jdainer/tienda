@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Clientes - Perfumería</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // Configuración de Tailwind (Mismo tema oscuro/dorado)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0f172a',
+                        'accent-gold': '#d9a94e',
+                        'secondary-light': '#f3f4f6',
+                    },
+                }
+            }
+        }
+
+        // =========================================================
+        // 1. LÓGICA DE REGISTRO (Mantenida y Limpiada)
+        // =========================================================
+        
+        function registrar() {
+            let nombre = document.getElementById('nombre').value.trim();
+            let telefono = document.getElementById('telefono').value.trim();
+            let direccion = document.getElementById('direccion').value.trim();
+
+            if (!nombre || !telefono || !direccion) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campos incompletos',
+                    text: 'Por favor, llena todos los campos antes de continuar.',
+                    confirmButtonColor: '#d9a94e', // Usamos el color dorado de acento
+                });
+                return;
+            }
+
+            // ✅ Mostrar mensaje de éxito antes de enviar a WhatsApp
+            Swal.fire({
+                icon: 'success',
+                title: '¡Registro exitoso! 🎉',
+                html: `
+                    <p class="text-gray-700">
+                        ${nombre}, gracias por registrarte. estas participando por un  
+                        <span class="font-bold text-lg text-accent-gold">regalo</span>
+                        
+                    </p>
+                    <p class="mt-2 text-sm text-gray-500">
+                        ¡Para obtener el regalo, no olvides dar clic en enviar tu registro por WhatsApp!
+                    </p>
+                `,
+                confirmButtonColor: '#0f172a', // Usamos el color oscuro primario
+                confirmButtonText: 'Enviar a WhatsApp',
+                customClass: {
+                    confirmButton: 'bg-primary-dark hover:bg-gray-800 text-secondary-light font-bold py-2 px-4 rounded-lg transition duration-300'
+                }
+            }).then(() => {
+                let numeroWhatsApp = "573138094678"; // ← Reemplaza con el tuyo
+
+                let mensaje = `🌸 Nuevo registro de cliente:\n\n👤 Nombre: ${nombre}\n📞 Teléfono: ${telefono}\n🏠 Dirección: ${direccion}\n🎁 Cliente registrado con 10% de descuento.`;
+
+                let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+                window.open(url, '_blank');
+            });
+        }
+
+        function yaRegistrado() {
+            Swal.fire({
+                title: 'Te dirigiremos a la tienda 💐',
+                html: `
+                    <p class="text-gray-700">¡Gracias por preferirnos!</p>
+                    <a href="shop.html" class="inline-block bg-accent-gold text-primary-dark font-bold py-2 px-6 rounded-lg mt-3 hover:bg-[#c99a45] transition duration-300 shadow-md">
+                        Ir a la tienda 🛍️
+                    </a>
+                `,
+                showConfirmButton: false,
+                icon: 'info'
+            });
+        }
+    </script>
+</head>
+<body class="bg-primary-dark flex justify-center items-center min-h-screen p-4">
+
+    <div class="w-full max-w-sm bg-gray-800/80 text-secondary-light rounded-2xl p-8 shadow-2xl shadow-accent-gold/30 border border-gray-700 backdrop-blur-sm">
+        
+        <h1 class="text-3xl font-extrabold text-accent-gold mb-2 tracking-wider">
+            Mis Fragancias
+        </h1>
+        <h1 class="text-xl font-semibold text-secondary-light mb-6">
+            Jhon Dainer Arias
+        </h1>
+
+        <h2 class="text-2xl font-light text-secondary-light mb-6 border-b border-gray-700 pb-4">
+            🎁 ¡Regístrate y participa por un regalo!
+        </h2>
+        
+        <div class="space-y-4">
+            <input type="text" id="nombre" placeholder="Nombre completo"
+                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
+                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
+            >
+            <input type="text" id="telefono" placeholder="Número celular"
+                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
+                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
+            >
+            <input type="text" id="direccion" placeholder="Dirección"
+                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
+                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
+            >
+        </div>
+
+        <button onclick="registrar()"
+            class="mt-6 w-full py-3 rounded-lg font-bold text-xl
+                   bg-accent-gold text-primary-dark 
+                   hover:bg-[#c99a45] transition duration-300 transform hover:scale-[1.01] shadow-lg shadow-accent-gold/30"
+        >
+            Registrarme
+        </button>
+
+        <span class="mt-4 block text-center text-sm font-medium cursor-pointer 
+                     text-gray-400 hover:text-accent-gold transition duration-300" 
+              onclick="yaRegistrado()"
+        >
+            ¿Ya estás registrado? Haz clic aquí
+        </span>
+    </div>
+
+</body>
+</html>
