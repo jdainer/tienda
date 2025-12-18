@@ -7,245 +7,272 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script>
-        // Configuración de Tailwind (Colores y Animaciones)
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#0f172a', // Base Oscura
-                        'accent-gold': '#d9a94e', // Dorado Lujoso
-                        'secondary-light': '#f3f4f6', // Blanco/Gris Claro
-                        'deep-navy': '#1e293b', // Un azul más profundo
+
+<script>
+    // Configuración UNIFICADA de Tailwind para CDN (uso en HTML)
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'primary-dark': '#1e293b',      // Azul Pizarra Oscuro (Fondo)
+                    'accent-copper': '#b46a48',     // Cobre Envejecido (Acento)
+                    'secondary-light': '#f8fafc',   // Blanco Tiza (Texto principal)
+                    'highlight-slate': '#475569',   // Gris Pizarra (Subtítulos/Bordes)
+                },
+                keyframes: {
+                    fadeInUp: { 
+                        '0%': { opacity: '0', transform: 'translateY(20px)' }, 
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
                     },
-                    keyframes: {
-                        fadeInUp: { 
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        pulseGold: { 
-                            '0%, 100%': { opacity: '0.9', transform: 'scale(1)' },
-                            '50%': { opacity: '1', transform: 'scale(1.03)' }
-                        }
+                    pulseGold: { 
+                        '0%, 100%': { opacity: '0.9', transform: 'scale(1)' },
+                        '50%': { opacity: '1', transform: 'scale(1.03)' }
                     },
-                    animation: {
-                        'fadeIn': 'fadeInUp 1.2s ease-out forwards',
-                        'fadeIn-2': 'fadeInUp 1.2s ease-out 0.3s forwards', 
-                        'fadeIn-3': 'fadeInUp 1.2s ease-out 0.6s forwards', 
-                        'pulse-gold': 'pulseGold 3s infinite ease-in-out',
-                    }
+                    pulse: {
+                        '0%, 100%': { transform: 'scale(1)' },
+                        '50%': { transform: 'scale(1.1)' }, 
+                    },
+                    cartWaggle: {
+                        '0%, 100%': { transform: 'translateX(0) rotate(0deg)' },
+                        '20%': { transform: 'translateX(-3px) rotate(-1deg)' },
+                        '40%': { transform: 'translateX(3px) rotate(1deg)' },
+                        '60%': { transform: 'translateX(-3px) rotate(-1deg)' },
+                        '80%': { transform: 'translateX(3px) rotate(1deg)' },
+                    },
+                    slideText: { 
+                        '0%': { transform: 'translateX(100%)' }, 
+                        '100%': { transform: 'translateX(-100%)' },
+                    },
+                },
+                animation: {
+                    'fadeIn': 'fadeInUp 1.2s ease-out forwards',
+                    'fadeIn-2': 'fadeInUp 1.2s ease-out 0.3s forwards', 
+                    'fadeIn-3': 'fadeInUp 1.2s ease-out 0.6s forwards', 
+                    'pulse-gold': 'pulseGold 3s infinite ease-in-out',
+                    'button-pulse': 'pulse 2s infinite ease-in-out',
+                    'cart-waggle': 'cartWaggle 0.8s infinite ease-in-out 0.2s',
+                    'slide-infinite': 'slideText 30s linear infinite',
                 }
             }
         }
-    </script>
+    }
+</script>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #6ed1f8; /* Azul Pizarra Oscuro */
+    }
+  
+    }
     
-    <style>
-        /* ESTILO ACTUAL: Fondo Dinámico Lujoso (Opción 2) */
-        .hero-background {
-            position: relative;
-            overflow: hidden;
-            background-image: 
-                radial-gradient(circle, #02fc17 1px, transparent 1px),
-                radial-gradient(circle, rgba(3, 41, 253, 0.5) 0.5px, transparent 0.5px),
-                radial-gradient(circle at 50% 10%, #0c64f1 0%, #0f172a 70%);
-            background-size: 100px 100px, 50px 50px, cover;
-            background-position: 0 0, 10px 10px, 0 0;
-            background-attachment: fixed;
-        }
+    /* Efecto 3D / Relieve Cobre/Bronce */
+    .title-3d-luxury {
         
-        /* Efecto 3D / Relieve Metálico (Ajustado a la paleta Oro/Oscuro) */
-        .title-3d-luxury {
-            /* Sombra de texto que simula profundidad y brillo */
-            text-shadow: 
-                /* Sombra clara (simula el borde exterior del relieve) */
-                1px 1px 0 #ffffff, 
-                /* Sombra oscura (para la profundidad/3D) - Usa el color deep-navy */
-                3px 3px 0 #0562f8, 
-                
-                /* Sombra de brillo (para el "pulido") */
-                0 0 10px rgba(217, 169, 78, 0.5), 
-                0 0 20px rgba(209, 255, 5, 0.3);
-                
-            /* Degradado blanco/gris para el look metálico pulido */
-            background-image: linear-gradient(180deg, #f3f4f6, #104702); 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Aseguramos que la sublínea dorada se vea bien */
-        .subtitle-gold {
-            background-image: linear-gradient(to right, #d94ed2, #f07cd3, #d9a94e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Ocultar elementos para que la animación los revele */
-        .animate-on-load {
-            opacity: 0;
-        }
-    </style>
+        color: #f0a989; /* Fallback */
+
+        /* Sombra de texto que simula profundidad y brillo */
+        text-shadow: 
+            1px 1px 0 #f8fafc, 
+            3px 3px 0 #1e293b, 
+            0 0 10px rgba(180, 106, 72, 0.7), 
+            0 0 20px rgba(180, 106, 72, 0.4);
+    }
+    
+    /* Aseguramos que la sublínea se vea bien con tonos de Cobre */
+    .subtitle-gold {
+        /* Transición de Cobre/Naranja para elegancia */
+        background-image: linear-gradient(to right, #f0ebe8, #e2eb66, #f5e65f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Ocultar elementos para que la animación los revele */
+    .animate-on-load {
+        opacity: 0;
+    }
+</style>
+
 </head>
 
 <body class="bg-primary-dark text-secondary-light min-h-screen">
 
     <main class="hero-background">
+        
+<section class="w-full bg-primary-dark py-4 overflow-hidden shadow-lg border-t border-b border-accent-copper/20">
+    <div class="relative whitespace-nowrap overflow-hidden">
+        <p class="text-3xl md:text-4xl font-semibold text-accent-copper/90 
+                  inline-block animate-slide-infinite"
+        >
+            ✨ mis fragancias jhon dainer arias • Fragancias únicas para cada momento • Calidad y economía a tu alcance • ¡Aprovecha nuestras ofertas especiales! ✨ 
+        </p>
+        <p class="text-3xl md:text-4xl font-semibold text-accent-copper/90 
+                  inline-block animate-slide-infinite absolute top-0 left-full"
+        >
+        </p>
+    </div>
+</section>
 
-        <section class="py-16 md:py-32 flex justify-center items-center"> 
+<section class="py-16 md:py-32 flex justify-center items-center"> 
             <div class="container mx-auto px-6 max-w-5xl text-center">
                 
                 <h1 class="text-4xl md:text-4xl font-extrabold mb-4 
-                           animate-on-load animate-fadeIn title-3d-luxury"
+                            animate-on-load animate-fadeIn title-3d-luxury"
                 >
                     <span class="block text-4xl md:text-5xl font-light mb-2 animate-pulse-gold subtitle-gold">
-                         Mis Fragancias
+                        Mis Fragancias
                     </span>
                     JHON DAINER ARIAS
                 </h1>
                 
-                <p class="text-xl md:text-3xl font-light text-gray-300 mb-12 
-                          animate-on-load animate-fadeIn-2"
+                <p class="text-xl md:text-3xl font-light text-secondary-light/80 mb-12 
+                              animate-on-load animate-fadeIn-2"
                 >
-                    Fragancias **exclusivas** a tu medida. Lujo que puedes llevar a diario.
+                    Fragancias exclusivas a la medida de tu presupuesto
                 </p>
                 
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 
-                            animate-on-load animate-fadeIn-3">
-                    
-                    <a href="shop.html" 
-                       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
-                              bg-accent-gold text-primary-dark font-black text-xl rounded-xl shadow-2xl shadow-accent-gold/50
-                              hover:bg-[#c99a45] transition duration-300 transform hover:scale-[1.05] tracking-wide"
-                    >
-                        <i class="fas fa-shopping-bag mr-3"></i> 
-                        Explorar Catálogo
-                    </a> 
-                    
-                    <a href="clientes.html" 
-                       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
-                              bg-transparent border-2 border-gray-600 text-gray-300 font-bold text-lg rounded-xl shadow-lg
-                              hover:border-accent-gold hover:text-accent-gold transition duration-300 transform hover:scale-[1.02]"
-                    >
-                        <i class="fas fa-gift mr-3"></i> 
-                        ¡Regístrate y Gana!
-                    </a>
-                </div>
+<div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+    <a href="shop.html" 
+       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
+           bg-accent-copper text-secondary-light font-black text-xl rounded-xl shadow-2xl shadow-accent-copper/50
+           hover:bg-[#a35e3f] transition duration-300 transform hover:scale-[1.05] tracking-wide
+           animate-on-load animate-fadeIn-3 animate-button-pulse" 
+           style="animation-delay: 0.6s;"
+    >
+        <i class="fas fa-shopping-cart mr-3 text-2xl animate-cart-waggle"></i> 
+        hacer una compra
+    </a>
+    
+    <a href="clientes.html" 
+       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
+           bg-transparent border-2 border-highlight-slate text-secondary-light font-bold text-xl rounded-xl shadow-lg
+           hover:border-accent-copper hover:text-accent-copper transition duration-300 transform hover:scale-[1.02]
+           animate-on-load animate-fadeIn-3"
+           style="animation-delay: 0.9s;"
+    >
+        <i class="fas fa-gift mr-3"></i> 
+        ¡Regístrate y Gana!
+    </a>
+</div>
             </div>
         </section>
 
-        <section class="py-12 bg-deep-navy/80 border-y border-gray-700">
+<section class="py-12 bg-primary-dark/50 border-y border-highlight-slate">
             <div class="container mx-auto px-6 max-w-4xl text-center">
                 
-                <h2 class="text-4xl md:text-5xl font-extrabold text-accent-gold mb-4 
-                           animate-on-load animate-fadeIn" 
-                    style="animation-delay: 0.1s;"
+                <h2 class="text-4xl md:text-5xl font-extrabold text-accent-copper mb-4 
+                            animate-on-load animate-fadeIn" 
+                    style="animation-delay: 1.2s;"
                 >
-                    <i class="fas fa-star text-3xl mr-3"></i> 
-                    Las Mejores Esencias de Ibagué
+                   ✨ Las Mejores Esencias de Ibagué
                 </h2>
                 
-                <blockquote class="p-6 mt-4 border-2 border-accent-gold/50 rounded-lg bg-primary-dark/50 shadow-xl 
-                                   animate-on-load animate-fadeIn-2" 
-                            style="animation-delay: 0.4s;">
+                <blockquote class="p-6 mt-4 border-2 border-accent-copper/50 rounded-lg bg-primary-dark/80 shadow-xl 
+                                     animate-on-load animate-fadeIn-2" 
+                            style="animation-delay: 1.5s;">
                     <p class="text-xl md:text-2xl italic font-light text-secondary-light">
-                        "Nuestros proveedores manejan las mejores fragancias de **alta fijación y pureza**, garantizando una experiencia olfativa superior."
+                        "Nuestros proveedores manejan las mejores fragancias de ✨alta fijación y pureza, garantizando una experiencia olfativa superior."
                     </p>
-                    <footer class="mt-3 text-sm font-semibold text-gray-400">
-                        — Compromiso de Jhon Dainer Arias
+                    <footer class="mt-3 text-sm font-semibold text-highlight-slate">
+                        — Compromiso de Jhon Dainer Arias — 
                     </footer>
                 </blockquote>
                 
             </div>
         </section>
 
-
-        <section class="py-16 bg-primary-dark/70 border-b border-gray-700">
+<section class="py-16 bg-primary-dark/90 border-b border-highlight-slate">
             <div class="container mx-auto px-6 max-w-5xl text-center">
                 
-                <h2 class="text-5xl md:text-6xl font-black text-accent-gold mb-8 
-                           border-b-4 border-accent-gold/50 inline-block pb-1
-                           animate-on-load animate-fadeIn"
-                    style="animation-delay: 0.8s;"
+                <h2 class="text-5xl md:text-6xl font-black text-accent-copper mb-8 
+                            border-b-4 border-accent-copper/50 inline-block pb-1
+                            animate-on-load animate-fadeIn"
+                    style="animation-delay: 1.8s;"
                 >
                     ¡Económicas!
                 </h2>
                 
                 <p class="text-xl md:text-2xl font-light text-secondary-light mb-10 
-                          animate-on-load animate-fadeIn-2" 
-                   style="animation-delay: 1.1s;">
-                    Máxima calidad y durabilidad <em class="text-accent-gold font-semibold">sin el costo excesivo</em> de las grandes marcas.
+                              animate-on-load animate-fadeIn-2" 
+                    style="animation-delay: 2.1s;">
+                    Máxima calidad y durabilidad <em class="text-accent-copper font-semibold">sin el costo excesivo</em> de las grandes marcas.
                 </p>
 
-                <div class="h-1 mx-auto bg-gray-700/50 w-24 mb-10 animate-on-load" style="animation-delay: 1.4s;"></div>
+                <div class="h-1 mx-auto bg-highlight-slate w-24 mb-10 animate-on-load" style="animation-delay: 2.4s;"></div>
 
-                <div class="animate-on-load animate-fadeIn-3" style="animation-delay: 1.7s;">
-                    <p class="text-2xl font-semibold text-gray-300 mb-6">
-                        Disponibles en **varios tamaños**:
+                <div class="animate-on-load animate-fadeIn-3" style="animation-delay: 2.7s;">
+                    <p class="text-2xl font-semibold text-secondary-light/90 mb-6">
+                        Disponibles en varios tamaños:
                     </p>
 
                     <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
                         
-                        <div class="p-4 rounded-lg bg-gray-800/70 border border-gray-700 shadow-xl w-40">
-                            <span class="text-lg font-normal block text-gray-500">Desde</span>
-                            <span class="text-3xl font-extrabold text-accent-gold">
+                        <div class="p-4 rounded-lg bg-primary-dark/70 border border-highlight-slate shadow-xl w-40">
+                            <span class="text-lg font-normal block text-highlight-slate">Desde</span>
+                            <span class="text-3xl font-extrabold text-accent-copper">
                                 $25 mil
                             </span>
+                <span class="text-lg font-normal block text-highlight-slate">30 ml tamaño  pequeño</span>
+
                         </div>
                         
-                        <div class="p-6 rounded-xl bg-accent-gold text-primary-dark shadow-2xl shadow-accent-gold/40 w-48 transform scale-110 animate-pulse-gold">
+                        <div class="p-6 rounded-xl bg-accent-copper text-primary-dark shadow-2xl shadow-accent-copper/40 w-48 transform scale-110 animate-pulse-gold">
                             <span class="text-xl font-bold">Opción Popular</span>
                             <span class="text-4xl font-black block mt-1">
                                 $40 mil
                             </span>
+<span class="text-lg font-normal block text-highlight-slate">tamaño mediano 50 ml</span>
+
                         </div>
 
-                        <div class="p-4 rounded-lg bg-gray-800/70 border border-gray-700 shadow-xl w-40">
-                            <span class="text-lg font-normal block text-gray-500">Hasta</span>
-                            <span class="text-3xl font-extrabold text-accent-gold">
+                        <div class="p-4 rounded-lg bg-primary-dark/70 border border-highlight-slate shadow-xl w-40">
+                            <span class="text-lg font-normal block text-highlight-slate">Hasta</span>
+                            <span class="text-3xl font-extrabold text-accent-copper">
                                 $75 mil
                             </span>
+                                                        <span class="text-lg font-normal block text-highlight-slate">Desde</span>
+ <span class="text-lg font-normal block text-highlight-slate">100 ml tamaño grande</span>
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-
-        <section class="py-10 bg-deep-navy/90 border-t-4 border-b-4 border-accent-gold/50 shadow-inner">
+<section class="py-10 bg-primary-dark border-t-4 border-b-4 border-accent-copper/50 shadow-inner">
             <div class="container mx-auto px-6 max-w-4xl text-center">
                 
                 <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
                     
-                    <div class="flex items-center justify-center animate-on-load animate-fadeIn" style="animation-delay: 2.1s;">
-                        <i class="fas fa-truck-fast text-4xl text-accent-gold mr-4"></i>
+                    <div class="flex items-center justify-center animate-on-load animate-fadeIn" style="animation-delay: 3.1s;">
+                        <i class="fas fa-truck-fast text-4xl text-accent-copper mr-4"></i>
                         <h2 class="text-3xl font-black text-secondary-light">
                             Entrega Rápida
                         </h2>
                     </div>
 
-                    <p class="text-xl font-light text-gray-400 border-l border-gray-600 md:pl-8 
-                             animate-on-load animate-fadeIn-2" style="animation-delay: 2.4s;">
+                    <p class="text-xl font-light text-highlight-slate border-l border-highlight-slate md:pl-8 
+                              animate-on-load animate-fadeIn-2" style="animation-delay: 3.4s;">
                         Tu fragancia favorita llegará a ti **rápidamente** en 
-                        <span class="font-bold text-accent-gold">Ibagué y alrededores</span>.
+                        <span class="font-bold text-accent-copper">Ibagué y alrededores</span>.
                     </p>
                     
                 </div>
             </div>
         </section>
 
-
-        <section id="contacto" class="py-12 bg-primary-dark">
+<section id="contacto" class="py-12 bg-primary-dark">
             <div class="container mx-auto px-6 max-w-4xl text-center">
-                <h2 class="text-3xl font-bold text-accent-gold mb-6 border-b border-gray-700 pb-2 inline-block animate-on-load animate-fadeIn">
+                <h2 class="text-3xl font-bold text-accent-copper mb-6 border-b border-highlight-slate pb-2 inline-block animate-on-load animate-fadeIn" style="animation-delay: 3.7s;">
                     Contáctanos
                 </h2>
-                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 animate-on-load animate-fadeIn-2">
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 animate-on-load animate-fadeIn-2" style="animation-delay: 4.0s;">
                     
-                    <p class="text-lg font-medium text-secondary-light hover:text-accent-gold transition duration-300">
-                        <i class="fas fa-phone mr-2 text-gray-500"></i> Llámanos: <a href="tel:+573138094678" class="hover:underline">+57 313 809 4678</a>
+                    <p class="text-lg font-medium text-secondary-light hover:text-accent-copper transition duration-300">
+                        <i class="fas fa-phone mr-2 text-highlight-slate"></i> Llámanos: <a href="tel:+573138094678" class="hover:underline">+57 313 809 4678</a>
                     </p>
                     
-                    <span class="hidden md:inline-block text-gray-600">|</span>
+                    <span class="hidden md:inline-block text-highlight-slate">|</span>
                     
                     <p class="text-lg font-medium">
                         <i class="fab fa-whatsapp mr-2 text-green-500"></i> WhatsApp: 
@@ -259,16 +286,16 @@
         
     </main>
 
-    <footer class="bg-deep-navy py-6 border-t border-gray-800">
+<footer class="bg-primary-dark py-6 border-t border-highlight-slate">
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
             
-            <p class="text-sm text-gray-500 order-2 sm:order-1 mt-4 sm:mt-0">
+            <p class="text-sm text-highlight-slate order-2 sm:order-1 mt-4 sm:mt-0">
                 &copy; 2025 Mis Fragancias Jhon Dainer Arias. Ibagué, Tolima.
             </p>
             
             <div class="social-links order-1 sm:order-2">
                 <a href="https://wa.me/573138094678" target="_blank" title="WhatsApp" 
-                   class="text-gray-400 hover:text-green-500 transition duration-300 text-2xl">
+                   class="text-highlight-slate hover:text-green-500 transition duration-300 text-2xl">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
