@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Clientes - Perfumería</title>
+    <title>Gana con Jhon Arias | Registro y Ruleta</title>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <script>
-        // Configuración de Tailwind (Mismo tema oscuro/dorado)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         'primary-dark': '#0f172a',
                         'accent-gold': '#d9a94e',
+                        'accent-copper': '#b46a48',
                         'secondary-light': '#f3f4f6',
                     },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
                 }
             }
         }
 
-        // =========================================================
-        // 1. LÓGICA DE REGISTRO (Mantenida y Limpiada)
-        // =========================================================
-        
+        // Variables Globales
+        let datosCliente = null;
+
         function registrar() {
             let nombre = document.getElementById('nombre').value.trim();
             let telefono = document.getElementById('telefono').value.trim();
@@ -36,100 +44,165 @@
                 Swal.fire({
                     icon: 'warning',
                     title: 'Campos incompletos',
-                    text: 'Por favor, llena todos los campos antes de continuar.',
-                    confirmButtonColor: '#d9a94e', // Usamos el color dorado de acento
+                    text: 'Llena tus datos para desbloquear la ruleta de premios.',
+                    confirmButtonColor: '#d9a94e',
                 });
                 return;
             }
 
-            // ✅ Mostrar mensaje de éxito antes de enviar a WhatsApp
+            datosCliente = { nombre, telefono, direccion };
+            
+            // Ocultar registro y mostrar ruleta
+            document.getElementById('registro-section').classList.add('hidden');
+            document.getElementById('ruleta-section').classList.remove('hidden');
+            
             Swal.fire({
                 icon: 'success',
-                title: '¡Registro exitoso! 🎉',
-                html: `
-                    <p class="text-gray-700">
-                        ${nombre}, gracias por registrarte. estas participando por un  
-                        <span class="font-bold text-lg text-accent-gold">regalo</span>
-                        
-                    </p>
-                    <p class="mt-2 text-sm text-gray-500">
-                        ¡Para obtener el regalo, no olvides dar clic en enviar tu registro por WhatsApp!
-                    </p>
-                `,
-                confirmButtonColor: '#0f172a', // Usamos el color oscuro primario
-                confirmButtonText: 'Enviar a WhatsApp',
-                customClass: {
-                    confirmButton: 'bg-primary-dark hover:bg-gray-800 text-secondary-light font-bold py-2 px-4 rounded-lg transition duration-300'
-                }
-            }).then(() => {
-                let numeroWhatsApp = "573138094678"; // ← Reemplaza con el tuyo
-
-                let mensaje = `🌸 Nuevo registro de cliente:\n\n👤 Nombre: ${nombre}\n📞 Teléfono: ${telefono}\n🏠 Dirección: ${direccion}\n🎁 Cliente registrado con 10% de descuento.`;
-
-                let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-                window.open(url, '_blank');
+                title: '¡Datos recibidos!',
+                text: 'Ahora gira la ruleta para descubrir tu premio.',
+                confirmButtonColor: '#d9a94e',
             });
+        }
+
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const button = document.getElementById('spin-button');
+            const resultBox = document.getElementById('result-box');
+            const resultText = document.getElementById('result-text');
+
+            button.disabled = true;
+            button.style.opacity = "0.5";
+
+            // LÓGICA DE PROBABILIDAD (1 entre 1000 para el premio 777)
+            const chance = Math.floor(Math.random() * 1000) + 1;
+            let finalAngle = 0;
+            let premio = "";
+
+            if (chance === 777) { 
+                finalAngle = 0; // Segmento del Perfume
+                premio = "🎁 ¡GANASTE UN PERFUME GRATIS! 🎁";
+            } else {
+                // Cae en descuentos (Ángulos entre 10 y 350 para evitar el 0)
+                finalAngle = Math.floor(Math.random() * 340) + 15;
+                
+                if (finalAngle > 0 && finalAngle <= 90) premio = "sigue intentando";
+                else if (finalAngle > 90 && finalAngle <= 180) premio = "uff  casi";
+                else if (finalAngle > 180 && finalAngle <= 270) premio = "hoy no es tu dia de suerte";
+                else premio = "sera la proxima";
+            }
+
+            const totalRotation = 3600 + (360 - finalAngle);
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+            setTimeout(() => {
+                resultBox.classList.remove('hidden');
+                resultText.textContent = premio;
+                
+                // Botón final para WhatsApp
+                document.getElementById('whatsapp-btn').classList.remove('hidden');
+            }, 5100);
+        }
+
+        function enviarWhatsApp() {
+            const premio = document.getElementById('result-text').textContent;
+            let numeroWhatsApp = "573138094678";
+            let mensaje = `🌸 ¡Hola Jhon Arias! Acabo de girar la ruleta:\n\n👤 Nombre: ${datosCliente.nombre}\n📞 Teléfono: ${datosCliente.telefono}\n🏠 Dirección: ${datosCliente.direccion}\n🎉 PREMIO GANADO: ${premio}\n\nAdjunto captura de pantalla.`;
+
+            let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
 
         function yaRegistrado() {
-            Swal.fire({
-                title: 'Te dirigiremos a la tienda 💐',
-                html: `
-                    <p class="text-gray-700">¡Gracias por preferirnos!</p>
-                    <a href="shop.html" class="inline-block bg-accent-gold text-primary-dark font-bold py-2 px-6 rounded-lg mt-3 hover:bg-[#c99a45] transition duration-300 shadow-md">
-                        Ir a la tienda 🛍️
-                    </a>
-                `,
-                showConfirmButton: false,
-                icon: 'info'
-            });
+            window.location.href = "shop.html";
         }
     </script>
+
+    <style>
+        .cubic-bezier { transition-timing-function: cubic-bezier(0.15, 0, 0.15, 1); }
+    </style>
 </head>
-<body class="bg-primary-dark flex justify-center items-center min-h-screen p-4">
+<body class="bg-primary-dark text-secondary-light min-h-screen flex items-center justify-center p-4">
 
-    <div class="w-full max-w-sm bg-gray-800/80 text-secondary-light rounded-2xl p-8 shadow-2xl shadow-accent-gold/30 border border-gray-700 backdrop-blur-sm">
-        
-        <h1 class="text-3xl font-extrabold text-accent-gold mb-2 tracking-wider">
-            Mis Fragancias
-        </h1>
-        <h1 class="text-xl font-semibold text-secondary-light mb-6">
-            Jhon Dainer Arias
-        </h1>
+    <div id="registro-section" class="w-full max-w-sm bg-gray-800/80 rounded-2xl p-8 shadow-2xl border border-gray-700 backdrop-blur-sm animate-fadeIn">
+        <h1 class="text-3xl font-extrabold text-accent-gold mb-2 tracking-wider">Mis Fragancias</h1>
+        <p class="text-secondary-light/60 mb-6 italic text-sm">Jhon Dainer Arias</p>
 
-        <h2 class="text-2xl font-light text-secondary-light mb-6 border-b border-gray-700 pb-4">
-            🎁 ¡Regístrate y participa por un regalo!
+        <h2 class="text-xl font-light mb-6 border-b border-gray-700 pb-4">
+            🎁 Regístrate para girar la ruleta de premios.
         </h2>
         
         <div class="space-y-4">
-            <input type="text" id="nombre" placeholder="Nombre completo"
-                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
-                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
-            >
-            <input type="text" id="telefono" placeholder="Número celular"
-                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
-                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
-            >
-            <input type="text" id="direccion" placeholder="Dirección"
-                class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light 
-                       focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition duration-200 placeholder-gray-500"
-            >
+            <input type="text" id="nombre" placeholder="Nombre completo" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light focus:border-accent-gold focus:ring-1 focus:ring-accent-gold outline-none">
+            <input type="text" id="telefono" placeholder="Número celular" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light focus:border-accent-gold focus:ring-1 focus:ring-accent-gold outline-none">
+            <input type="text" id="direccion" placeholder="Dirección en Ibagué" class="w-full p-3 rounded-lg border border-gray-600 bg-gray-900 text-secondary-light focus:border-accent-gold focus:ring-1 focus:ring-accent-gold outline-none">
         </div>
 
-        <button onclick="registrar()"
-            class="mt-6 w-full py-3 rounded-lg font-bold text-xl
-                   bg-accent-gold text-primary-dark 
-                   hover:bg-[#c99a45] transition duration-300 transform hover:scale-[1.01] shadow-lg shadow-accent-gold/30"
-        >
-            Registrarme
+        <button onclick="registrar()" class="mt-6 w-full py-3 rounded-lg font-bold text-xl bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-lg shadow-accent-gold/20">
+            Siguiente <i class="fas fa-arrow-right ml-2"></i>
         </button>
 
-        <span class="mt-4 block text-center text-sm font-medium cursor-pointer 
-                     text-gray-400 hover:text-accent-gold transition duration-300" 
-              onclick="yaRegistrado()"
-        >
-            ¿Ya estás registrado? Haz clic aquí
+        <span class="mt-4 block text-center text-xs text-gray-400 cursor-pointer hover:text-accent-gold" onclick="yaRegistrado()">
+            ¿Ya estás registrado? Ir a la tienda
         </span>
+    </div>
+
+    <div id="ruleta-section" class="hidden w-full max-w-md text-center animate-fadeIn">
+        <h2 class="text-3xl font-black text-accent-gold mb-2">JHON DAINER ARIAS TE DESEA ¡MUCHA SUERTE!</h2>
+        <p class="text-sm text-gray-400 mb-8">Toca el botón central para girar</p>
+
+        <div class="relative mx-auto w-72 h-72 md:w-80 md:h-80">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-30 text-accent-gold text-4xl drop-shadow-md">
+                <i class="fas fa-caret-down"></i>
+            </div>
+
+            <div id="wheel" class="w-full h-full rounded-full border-8 border-accent-copper shadow-2xl relative transition-transform duration-[5000ms] cubic-bezier overflow-hidden">
+    
+    <div class="absolute inset-0" style="background: conic-gradient(
+        #f80606 0deg 3deg,   /* Perfume (Dorado) */
+        #5392f7 3deg 90deg,  /* 10% (Azul) */
+        #1b6db9 90deg 180deg, /* 15% (Cobre) */
+        #213edf 180deg 270deg,/* 20% (Azul) */
+        #140788 270deg 360deg /* 5% (Cobre) */
+    );"></div>
+    
+    <div class="absolute inset-0 pointer-events-none text-[11px] font-black text-white uppercase">
+        
+        <div class="absolute inset-0 flex justify-center" style="transform: rotate(1.5deg);">
+            <span class="mt-15 text-primary-BLUE">PERFUME</span>
+        </div>
+
+        <div class="absolute inset-0 flex justify-center" style="transform: rotate(46.5deg);">
+            <span class="mt-8">sigue intentando</span>
+        </div>
+
+        <div class="absolute inset-0 flex justify-center" style="transform: rotate(135deg);">
+            <span class="mt-8">ufff  casi ganas </span>
+        </div>
+
+        <div class="absolute inset-0 flex justify-center" style="transform: rotate(225deg);">
+            <span class="mt-8">hoy no es tu dia de suerte </span>
+        </div>
+
+        <div class="absolute inset-0 flex justify-center" style="transform: rotate(315deg);">
+            <span class="mt-8 text-gray-200">sera la proxima</span>
+        </div>
+        
+    </div>
+</div>
+            <button id="spin-button" onclick="spinWheel()" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white text-primary-dark font-black rounded-full shadow-xl border-4 border-accent-gold z-40 active:scale-90 transition-transform">
+                GIRAR
+            </button>
+        </div>
+
+        <div id="result-box" class="mt-8 hidden animate-fadeIn">
+            <p id="result-text" class="text-2xl font-black text-accent-gold uppercase tracking-tighter"></p>
+            <p class="text-xs text-gray-400 mt-1">SI GANAS </p>
+            <p class="text-xs text-gray-400 mt-1">¡Toma una captura de pantalla ahora!</p>
+            
+            <button id="whatsapp-btn" onclick="enviarWhatsApp()" class="mt-6 inline-flex items-center px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition shadow-lg">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> Reclamar Premio
+            </button>
+        </div>
     </div>
 
 </body>
