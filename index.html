@@ -16,7 +16,7 @@
                 colors: {
                     'primary-dark': '#1e293b',      // Azul Pizarra Oscuro (Fondo)
                     'accent-copper': '#b46a48',     // Cobre Envejecido (Acento)
-                    'secondary-light': '#f8fafc',   // Blanco Tiza (Texto principal)
+                    'secondary-light': '#f8fafc',  // Blanco Tiza (Texto principal)
                     'highlight-slate': '#475569',   // Gris Pizarra (Subtítulos/Bordes)
                 },
                 keyframes: {
@@ -61,16 +61,15 @@
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #6ed1f8; /* Azul Pizarra Oscuro */
-    }
-  
+        /* NOTA: `background-color: #6ed1f8;` en tu código original, pero 'primary-dark' es #1e293b. 
+           Asegúrate de que este color de fondo coincida con tu primary-dark si es el deseado. 
+           Si quieres el azul claro, cambia primary-dark en tailwind.config o usa directamente el color aquí. */
+        background-color: #1e293b; 
     }
     
     /* Efecto 3D / Relieve Cobre/Bronce */
     .title-3d-luxury {
-        
         color: #f0a989; /* Fallback */
-
         /* Sombra de texto que simula profundidad y brillo */
         text-shadow: 
             1px 1px 0 #f8fafc, 
@@ -91,6 +90,12 @@
     .animate-on-load {
         opacity: 0;
     }
+
+    /* Estilo para el GIF, si tiene un fondo oscuro o transparente */
+    .gif-container img {
+        filter: drop-shadow(0 0 15px rgba(180, 106, 72, 0.5)); /* Sombra para que el GIF resalte */
+        /* mix-blend-mode: screen; */ /* Usa esto si tu GIF son luces/partículas y quieres que se "mezcle" con el fondo oscuro */
+    }
 </style>
 
 </head>
@@ -102,18 +107,17 @@
 <section class="w-full bg-primary-dark py-4 overflow-hidden shadow-lg border-t border-b border-accent-copper/20">
     <div class="relative whitespace-nowrap overflow-hidden">
         <p class="text-3xl md:text-4xl font-semibold text-accent-copper/90 
-                  inline-block animate-slide-infinite"
+                     inline-block animate-slide-infinite"
         >
             ✨ mis fragancias jhon dainer arias • Fragancias únicas para cada momento • Calidad y economía a tu alcance • ¡Aprovecha nuestras ofertas especiales! ✨ 
         </p>
         <p class="text-3xl md:text-4xl font-semibold text-accent-copper/90 
-                  inline-block animate-slide-infinite absolute top-0 left-full"
-        >
-        </p>
+                     inline-block animate-slide-infinite absolute top-0 left-full"
+        ></p>
     </div>
 </section>
 
-<section class="py-16 md:py-32 flex justify-center items-center"> 
+<section class="py-16 md:py-24 flex justify-center items-center"> 
             <div class="container mx-auto px-6 max-w-5xl text-center">
                 
                 <h1 class="text-4xl md:text-4xl font-extrabold mb-4 
@@ -125,35 +129,46 @@
                     JHON DAINER ARIAS
                 </h1>
                 
-                <p class="text-xl md:text-3xl font-light text-secondary-light/80 mb-12 
+                <p class="text-xl md:text-3xl font-light text-secondary-light/80 mb-8 
                               animate-on-load animate-fadeIn-2"
                 >
                     Fragancias exclusivas a la medida de tu presupuesto
                 </p>
                 
-<div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-    <a href="shop.html" 
-       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
-           bg-accent-copper text-secondary-light font-black text-xl rounded-xl shadow-2xl shadow-accent-copper/50
-           hover:bg-[#a35e3f] transition duration-300 transform hover:scale-[1.05] tracking-wide
-           animate-on-load animate-fadeIn-3 animate-button-pulse" 
-           style="animation-delay: 0.6s;"
-    >
-        <i class="fas fa-shopping-cart mr-3 text-2xl animate-cart-waggle"></i> 
-        hacer una compra
-    </a>
-    
-    <a href="clientes.html" 
-       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
-           bg-transparent border-2 border-highlight-slate text-secondary-light font-bold text-xl rounded-xl shadow-lg
-           hover:border-accent-copper hover:text-accent-copper transition duration-300 transform hover:scale-[1.02]
-           animate-on-load animate-fadeIn-3"
-           style="animation-delay: 0.9s;"
-    >
-        <i class="fas fa-gift mr-3"></i> 
-        ¡Regístrate y Gana!
-    </a>
-</div>
+                <div class="relative mx-auto mb-12 w-64 h-64 md:w-80 md:h-80 animate-on-load animate-fadeIn-2 gif-container" style="animation-delay: 0.4s;">
+                    <div class="absolute inset-0 bg-accent-copper/20 blur-3xl rounded-full"></div>
+                    
+                    <div class="relative z-10 w-full h-full p-1 rounded-full bg-gradient-to-tr from-accent-copper via-yellow-200 to-accent-copper shadow-2xl">
+                        <div class="w-full h-full rounded-full overflow-hidden border-4 border-primary-dark">
+                            <img src="https://i.gifer.com/origin/d8/d8fc13e2b71e83eb60695069341be079_w200.gif" 
+                                 alt="Perfume Animación Lujo" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <a href="shop.html" 
+                       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
+                              bg-accent-copper text-secondary-light font-black text-xl rounded-xl shadow-2xl shadow-accent-copper/50
+                              hover:bg-[#a35e3f] transition duration-300 transform hover:scale-[1.05] tracking-wide
+                              animate-on-load animate-fadeIn-3 animate-button-pulse" 
+                               style="animation-delay: 0.6s;"
+                    >
+                        <i class="fas fa-shopping-cart mr-3 text-2xl animate-cart-waggle"></i> 
+                        hacer una compra
+                    </a>
+                    
+                    <a href="clientes.html" 
+                       class="inline-flex items-center justify-center w-full sm:w-80 px-8 py-4 
+                              bg-transparent border-2 border-highlight-slate text-secondary-light font-bold text-xl rounded-xl shadow-lg
+                              hover:border-accent-copper hover:text-accent-copper transition duration-300 transform hover:scale-[1.02]
+                              animate-on-load animate-fadeIn-3"
+                               style="animation-delay: 0.9s;"
+                    >
+                        <i class="fas fa-gift mr-3"></i> 
+                        ¡Regístrate y Gana!
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -164,12 +179,12 @@
                             animate-on-load animate-fadeIn" 
                     style="animation-delay: 1.2s;"
                 >
-                   ✨ Las Mejores Esencias de Ibagué
+                    ✨ Las Mejores Esencias de Ibagué
                 </h2>
                 
                 <blockquote class="p-6 mt-4 border-2 border-accent-copper/50 rounded-lg bg-primary-dark/80 shadow-xl 
                                      animate-on-load animate-fadeIn-2" 
-                            style="animation-delay: 1.5s;">
+                                style="animation-delay: 1.5s;">
                     <p class="text-xl md:text-2xl italic font-light text-secondary-light">
                         "Nuestros proveedores manejan las mejores fragancias de ✨alta fijación y pureza, garantizando una experiencia olfativa superior."
                     </p>
@@ -212,8 +227,7 @@
                             <span class="text-3xl font-extrabold text-accent-copper">
                                 $25 mil
                             </span>
-                <span class="text-lg font-normal block text-highlight-slate">30 ml tamaño  pequeño</span>
-
+                            <span class="text-lg font-normal block text-highlight-slate">30 ml tamaño pequeño</span>
                         </div>
                         
                         <div class="p-6 rounded-xl bg-accent-copper text-primary-dark shadow-2xl shadow-accent-copper/40 w-48 transform scale-110 animate-pulse-gold">
@@ -221,8 +235,7 @@
                             <span class="text-4xl font-black block mt-1">
                                 $40 mil
                             </span>
-<span class="text-lg font-normal block text-highlight-slate">tamaño mediano 50 ml</span>
-
+                            <span class="text-lg font-normal block text-primary-dark">tamaño mediano 50 ml</span>
                         </div>
 
                         <div class="p-4 rounded-lg bg-primary-dark/70 border border-highlight-slate shadow-xl w-40">
@@ -230,9 +243,7 @@
                             <span class="text-3xl font-extrabold text-accent-copper">
                                 $75 mil
                             </span>
-                                                        <span class="text-lg font-normal block text-highlight-slate">Desde</span>
- <span class="text-lg font-normal block text-highlight-slate">100 ml tamaño grande</span>
-
+                            <span class="text-lg font-normal block text-highlight-slate">100 ml tamaño grande</span>
                         </div>
                     </div>
                 </div>
@@ -252,7 +263,7 @@
                     </div>
 
                     <p class="text-xl font-light text-highlight-slate border-l border-highlight-slate md:pl-8 
-                              animate-on-load animate-fadeIn-2" style="animation-delay: 3.4s;">
+                                 animate-on-load animate-fadeIn-2" style="animation-delay: 3.4s;">
                         Tu fragancia favorita llegará a ti **rápidamente** en 
                         <span class="font-bold text-accent-copper">Ibagué y alrededores</span>.
                     </p>
@@ -304,3 +315,4 @@
     
 </body>
 </html>
+```http://googleusercontent.com/image_generation_content/2
