@@ -311,31 +311,33 @@
             // 3. Renderizar la lista de perfumes
             selectedBrand.perfumes.forEach((perfume, index) => {
                 const perfumeCard = document.createElement('div');
-                
-                // Enlaza a la siguiente página (Selección de Tamaño/Pago)
-                perfumeCard.innerHTML = `
-                    <div class="bg-gray-800/50 p-6 rounded-xl shadow-xl border border-gray-700 h-full flex flex-col justify-between 
-                                transform hover:scale-[1.02] hover:shadow-accent-gold transition duration-300 animate-fadeIn opacity-0"
-                                style="animation-delay: ${index * 50}ms;">
-                       <div class="flex justify-center mb-4">
-    <span class="inline-block w-[80px] h-[80px]">
-        <img src="img/2.jpg" class="w-full h-full object-contain" alt="icono perfume">
-    </span>
-</div>
+    perfumeCard.innerHTML = `
+    <div class="bg-gray-800/50 p-2 md:p-5 rounded-lg md:rounded-2xl shadow-xl border border-gray-700 h-full flex flex-col justify-between 
+                transform hover:scale-[1.03] transition duration-300 animate-fadeIn opacity-0"
+                style="animation-delay: ${index * 50}ms;">
+        
+        <div class="flex justify-center mb-2">
+            <span class="inline-block w-full h-[80px] sm:h-[150px] md:h-[220px] overflow-hidden rounded-md bg-white/5 p-1">
+               <img src="img/jdax.png" class="w-full h-full object-contain" alt="perfume">
+            </span>
+        </div>
 
-
-                        <div>
-                            <h3 class="text-3xl font-bold text-accent-gold mb-4">${perfume.name}</h3>
-                            <p class="text-gray-400 text-sm mb-4">${perfume.description}</p>
-                        </div>
-                        
-                        <a href="seleccionar-talla.html?brand=${selectedBrand.slug}&perfume=${perfume.id}" 
-                           class="w-full text-center mt-4 px-6 py-3 text-lg font-medium bg-accent-gold text-primary-dark rounded-lg 
-                                  hover:bg-yellow-600 transition duration-300 transform hover:translate-y-[-2px]">
-                            Seleccionar y Comprar
-                        </a>
-                    </div>
-                `;
+        <div class="flex-grow">
+            <h3 class="text-[10px] sm:text-sm md:text-lg font-bold text-accent-gold mb-1 leading-tight uppercase truncate">
+                ${perfume.name}
+            </h3>
+            <p class="hidden md:block text-gray-400 text-xs mb-4 line-clamp-2">
+                ${perfume.description}
+            </p>
+        </div>
+        
+        <a href="seleccionar-talla.html?brand=${selectedBrand.slug}&perfume=${perfume.id}" 
+           class="w-full text-center py-1.5 md:py-2.5 text-[9px] sm:text-xs md:text-sm font-bold bg-accent-gold text-primary-dark rounded-md 
+                  hover:bg-yellow-600 transition duration-300 uppercase tracking-tighter sm:tracking-widest">
+            Ver
+        </a>
+    </div>
+`;
                 listContainer.appendChild(perfumeCard);
             });
         });
@@ -343,7 +345,7 @@
 </head>
 <body class="bg-primary-dark text-secondary-light min-h-screen">
 
-    <div class="container mx-auto px-4 py-8 md:py-12">
+    <div class="container mx-auto px-2 py-8 md:py-8">
 
         <header class="mb-10 flex justify-between items-center border-b border-accent-gold pb-4">
             <a href="shop.html" class="text-xl hover:text-accent-gold transition duration-300 flex items-center">
@@ -355,8 +357,8 @@
             <div class="text-xl">🛒👤</div>
         </header>
 
-        <section id="perfume-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            </section>
+       <section id="perfume-list" class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-6">
+    </section>
 
     </div>
 
